@@ -17,10 +17,12 @@ def check(language, model_file, debug):
     """
     try:
         if language == 'textx':
+            click.echo('Checking model using language "textx".')
             metamodel_from_file(model_file, debug=debug)
             click.echo('Meta-model OK.')
         else:
             mm = get_language(language)()
+            click.echo('Checking model using language "{}".'.format(language))
             mm.model_from_file(model_file, debug=debug)
             click.echo('Model OK.')
     except TextXError as e:
