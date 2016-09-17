@@ -1,9 +1,10 @@
 
 import click
 from textx.metamodel import metamodel_from_file
-from textx.export import metamodel_export, model_export
 from textx.lang import get_language
 from textx.exceptions import TextXError
+from txtools.vis import metamodel_export, model_export
+
 
 @click.command()
 @click.argument('model_file')
