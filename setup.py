@@ -32,7 +32,7 @@ setup(
     url = URL,
     download_url = DOWNLOAD_URL,
     packages = ["txtools"],
-    install_requires = ["textX"],
+    install_requires = ["textX", "click"],
     keywords = "tools parser generator meta-language meta-model language DSL",
     entry_points={
         'console_scripts': [
