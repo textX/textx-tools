@@ -14,6 +14,7 @@ def list_langs(verbose):
         if verbose:
             lang_doc = ep.load().__doc__
             if lang_doc:
-                desc = "\n\t{}".format(ep.load().__doc__)
+                desc = "\n\t{}".format(lang_doc.strip())
+
         click.echo("%s - %s (%s)%s" % (ep.name, ep.dist, ep.dist.location,
                                        desc))
