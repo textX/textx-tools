@@ -36,7 +36,7 @@ setup(
         'txtools.cli': ['templates/*.template'],
     },
     zip_safe=False,
-    install_requires = ["textX", "Jinja2"],
+    install_requires = ["textX", "click", "Jinja2"],
     keywords = "tools parser generator meta-language meta-model language DSL",
     entry_points={
         'console_scripts': [
