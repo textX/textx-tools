@@ -6,6 +6,9 @@ meta = None
 
 
 def main():
+    """
+    {{lang_name}} language.
+    """
     global meta
 
     if meta is None:
