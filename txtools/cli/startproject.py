@@ -26,7 +26,7 @@ def startproject(project_type, project_name):
     if project_type == 'lang':
         _start_lang(project_name, full_project_name)
     else:
-        _start_gen(project_name)
+        _start_gen(project_name, full_project_name)
 
     click.echo('Done.')
 
@@ -57,10 +57,21 @@ def _start_lang(project_name, full_project_name):
         f.write(t.render())
 
 
-def _start_gen(project_name):
+def _start_gen(project_name, full_project_name):
     """
     Generates scaffolding for 'generator' textX project.
     """
+    package_name = _project_name_to_package_name(project_name)
+
+    current_dir = os.curdir
+    project_folder = os.path.join(current_dir, full_project_name)
+
+    env = Environment(loader=PackageLoader('txtools.cli', 'templates'))
+
+    t = env.get_template('setup-gen.py')
+    with open(os.path.join(project_folder, 'setup.py'), 'w') as f:
+        f.write(t.render(full_project_name=full_project_name,
+                         package_name=package_name))
 
 
 def _generate_base(project_name, project_name_full):
