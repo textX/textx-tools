@@ -1,0 +1,11 @@
+/*
+    An example language in textX.
+*/
+
+Hello:
+    'hello' who+=Who[',']
+;
+
+Who:
+    /\w+/
+;

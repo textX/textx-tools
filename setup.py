@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 import codecs
-from setuptools import setup
+from setuptools import setup, find_packages
 
 __author__ = "Igor R. Dejanović <igor DOT dejanovic AT gmail DOT com>"
 __version__ = "0.1"
@@ -31,8 +31,12 @@ setup(
     license = LICENSE,
     url = URL,
     download_url = DOWNLOAD_URL,
-    packages = ["txtools"],
-    install_requires = ["textX", "click"],
+    packages = find_packages(),
+    package_data={
+        'txtools.cli': ['templates/*.template'],
+    },
+    zip_safe=False,
+    install_requires = ["textX", "Jinja2"],
     keywords = "tools parser generator meta-language meta-model language DSL",
     entry_points={
         'console_scripts': [
