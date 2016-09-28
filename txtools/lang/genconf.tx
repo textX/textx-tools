@@ -1,9 +1,6 @@
 /*
-    Generator configuration language for textX-ER based models.
-*/
 
-/*
-
+// Generator configuration language 
 // Files extension should be .genconf
 
 // Perform for each object of particular type.
@@ -31,6 +28,9 @@ ConfigurationFile:
     ('models' '{'
         model*=FilePath     // Relative file path in the "models"
     '}')?
+
+    ('output' output=FilePath)?    // Output folder where code should be
+                                   // generated. Default is 'src'
 
     rules*=GenRule
 ;
