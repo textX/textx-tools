@@ -27,8 +27,14 @@ Model:
 */
 
 ConfigurationFile:
+
+    ('models' '{'
+        model*=FilePath     // Relative file path in the "models"
+    '}')?
+
     rules*=GenRule
 ;
+
 
 GenRule:
     name=ID ':'

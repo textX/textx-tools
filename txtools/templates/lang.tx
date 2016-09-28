@@ -9,3 +9,7 @@ Hello:
 Who:
     /\w+/
 ;
+
+Comment:
+    //
+;

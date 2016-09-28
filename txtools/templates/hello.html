@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>This is an example of Jinja2 template</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>Whos</h1>
+    <ul>
+    {% for who in whos %}
+        <li>{{who.name}}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
