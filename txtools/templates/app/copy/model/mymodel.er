@@ -1,0 +1,37 @@
+/*
+    This is an example model in ER language.
+*/
+
+model First
+"This is the first example in ER language"
+
+constraint less_than(attr) applies to attr
+
+
+enum Degree {
+    bachelor "B" "Bachelor"
+    master "M" "Master"
+    phD "P" "ph.D."
+}
+
+
+entity Person {
+
+    #a_key: int
+
+    name "Person name": string(50)
+    initials "Person initials": string(5): upper_case
+    age "Person age": int(3)[1]: positive
+
+    compartment "Education" {
+        degree: Degree
+        university "University" <-> code : University[*]
+    }
+}
+
+
+entity University {
+    #code "University code": int
+    name: string(50)[1]
+}
+
