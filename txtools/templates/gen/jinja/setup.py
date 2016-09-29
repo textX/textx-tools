@@ -7,15 +7,16 @@ from setuptools import setup
 __author__ = "TODO <TODO AT somedomain DOT com>"
 __version__ = "0.1"
 
+GITHUB_ACCOUNT = 'TODO'
 NAME = '{{full_project_name}}'
-DESC = 'TODO'
+DESC = '{{package_name}} textX generator'
 VERSION = __version__
-AUTHOR = 'TODO'
+AUTHOR = __author__.split('<')[0].strip()
 AUTHOR_EMAIL = __author__
 LICENSE = 'MIT'
-URL = 'https://github.com/TODO/%s' % NAME
-DOWNLOAD_URL = 'https://github.com/TODO/%s/archive/v%s.tar.gz' % \
-    (NAME, VERSION)
+URL = 'https://github.com/%s/%s' % (GITHUB_ACCOUNT, NAME)
+DOWNLOAD_URL = 'https://github.com/%s/%s/archive/v%s.tar.gz' % \
+    (GITHUB_ACCOUNT, NAME, VERSION)
 README = codecs.open(os.path.join(os.path.dirname(__file__), 'README.md'),
                      'r', encoding='utf-8').read()
 
