@@ -1,6 +1,6 @@
 # textx-tools
 
-The developer tool infrastructure for textX.
+The developer tool infrastructure for [textX](https://github.com/igordejanovic/textX).
 
 The main idea is to separate development tooling from the textX runtime.  This
 way core textX library will be kept to its minimum in terms of dependencies
