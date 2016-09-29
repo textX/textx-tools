@@ -6,7 +6,7 @@ from textx.lang import get_language
 
 def genconf_model():
     """
-    Returns genconf model for {{package_name}} generator and {{lang_name}}
+    Returns genconf model for '{{package_name}}' generator and '{{language}}'
     language.
     """
     gc_meta = get_language("genconf")
