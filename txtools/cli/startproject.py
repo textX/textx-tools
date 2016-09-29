@@ -1,9 +1,11 @@
-import os, sys
+import os
+import sys
 import re
 import click
 from textx.lang import get_language
 from textx.exceptions import TextXError
 from txtools import copy_scaffolding, render_scaffolding
+from textx.exceptions import TextXToolsException
 
 
 @click.command()
@@ -36,7 +38,6 @@ def startproject(project_type, language, project_name):
         click.echo('Project name may contain letters, digits and dashes.')
         sys.exit(1)
 
-
     if project_type == 'lang':
         package_name = _project_name_to_package_name(project_name)
         full_project_name = 'textx-{}-{}'.format(project_type, project_name)
@@ -66,7 +67,11 @@ def startproject(project_type, language, project_name):
         'language': language
     }
 
-    _generate_project(context)
+    try:
+        _generate_project(context)
+    except TextXToolsException as e:
+        click.echo(e)
+        sys.exit(1)
 
     click.echo('Done.')
 
@@ -81,7 +86,11 @@ def _generate_project(context):
     project_type = context['project_type']
     package_name = context['package_name']
 
-    os.makedirs(project_folder)
+    try:
+        os.makedirs(project_folder)
+    except FileExistsError:
+        raise TextXToolsException('Error: Project folder "{}" already exists.'
+                                  .format(project_folder))
 
     # Copy generic part defined in "all" folder
     copy_scaffolding("all", project_folder, package_name)
