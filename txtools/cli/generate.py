@@ -2,7 +2,7 @@ import os
 import click
 from txtools.lang.genconf import load_genconf
 from txtools.gen import generate
-from txtools.exception import TextXToolsException
+from txtools.exceptions import TextXToolsException
 
 
 @click.command()
