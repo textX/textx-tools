@@ -29,7 +29,7 @@ ConfigurationFile:
                                     // deduced from the file name.
 
     ('models' '{'
-        model*=FilePath     // Relative file path in the "models"
+        models*=FilePath     // Relative file path in the "models"
     '}')?
 
     ('output' output=FilePath)?    // Output folder where code should be
