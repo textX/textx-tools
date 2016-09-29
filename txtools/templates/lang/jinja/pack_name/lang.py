@@ -7,14 +7,13 @@ meta = None
 
 def main():
     """
-    {{lang_name}} language.
+    {{package_name}} language.
     """
     global meta
 
     if meta is None:
         curr_dir = os.path.dirname(__file__)
-        meta = metamodel_from_file(os.path.join(curr_dir, '{{metamodel_file}}'))
+        meta = metamodel_from_file(
+            os.path.join(curr_dir, '{{package_name}}.tx'))
 
     return meta
-
-

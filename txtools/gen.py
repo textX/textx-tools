@@ -8,19 +8,27 @@ from textx.lang import get_language
 
 
 # An instance of this namedtuple must be registered in textx_gen entry point.
-GenDesc = namedtuple('GenDesc', 'name lang callable')
+GenDesc = namedtuple('GenDesc', 'name lang genconf render')
 
 
 def iter_generators():
     """
-    Iterates overs registered generators and returns setuptools EntryPoint
+    Iterates over registered generators and returns setuptools EntryPoint
     instances.
     """
     for ep in pkg_resources.iter_entry_points(group='textx_gen'):
         yield ep
 
 
-def generate(model, lang, package_name, genconf_rules, output_folder):
+def get_generator_desc(generator_name):
+
+    for ep in iter_generators():
+        gen_desc = ep.load()
+        if gen_desc.name == generator_name:
+            return gen_desc
+
+
+def generate(model, lang, package_name, genconf_model, output_folder):
     """
     Runs generator rules contained in genconf_model using model as the source.
 
@@ -28,7 +36,7 @@ def generate(model, lang, package_name, genconf_rules, output_folder):
         model (input textX model):
         lang (str): The name of the registered language.
         package_name (str): The name of the generator package.
-        genconf_rules: A list of genconf rules.
+        genconf_model:
         output_folder (str): The output root path where code should be
             generated.
     """
@@ -36,11 +44,10 @@ def generate(model, lang, package_name, genconf_rules, output_folder):
     meta = get_language(lang)
     env = Environment(loader=PackageLoader(package_name, 'templates'))
 
-    for rule in genconf_rules:
+    for rule in genconf_model.rules:
 
         objs = all_of_type(meta, model, rule.type)
         t = env.get_template(rule.template_path)
-
 
         params = {}
         if rule.all:
@@ -63,24 +70,6 @@ def generate(model, lang, package_name, genconf_rules, output_folder):
                 params[rule.var_name] = obj
                 with open(output_folder, 'w') as f:
                     f.write(t.render(**params))
-
-
-def merge_genconfs(*models):
-    """
-    Merges multiple genconf models. Later model's rules will have precedence
-    over former ones. Think of it as rule override. This enables user to
-    redefine genconf rules defined by the generator component.
-
-    Returns a list of genconf rules.
-    """
-
-    rules = {}
-
-    for model in models:
-        for rule in model.rules:
-            rules[rule.name] = rule
-
-    return rules.values()
 
 
 def evaluate_target(target_expr, obj):

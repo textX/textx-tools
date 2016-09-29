@@ -17,4 +17,4 @@ def list_gens(verbose):
             if gen_doc:
                 desc = "\n\t{}".format(gen_doc.strip())
         click.echo("%s (%s) - %s (%s)%s" % (gendesc.name, gendesc.lang, ep.dist,
-                                           ep.dist.location, desc))
+                                            ep.dist.location, desc))

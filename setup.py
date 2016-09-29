@@ -48,7 +48,11 @@ setup(
             'startproject = txtools.cli.startproject:startproject',
             'list-gens = txtools.cli.list_gens:list_gens',
             'list-langs = txtools.cli.list_langs:list_langs',
+        ],
+        'textx_lang': [
+            'genconf = txtools.lang.genconf:meta'
         ]
+
     },
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
