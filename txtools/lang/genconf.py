@@ -40,7 +40,7 @@ def load_genconf(genconf_path):
     # Sanity check.
     if gen_desc is None:
         raise TextXToolsException(
-            'Generator "{}" for genconf model "{}" is not valid.'.format(
+            'Generator "{}" for genconf model "{}" is not registered.'.format(
                 model.gen_name, genconf_path))
 
     # Load original genconf from the generator
