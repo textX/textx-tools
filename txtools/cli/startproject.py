@@ -28,7 +28,10 @@ def startproject(project_type, language, project_name):
                 get_language(language)
             except TextXError as e:
                 click.echo(e)
-                click.echo('Try to install it with "pip install textx-lang-{}"'
+                click.echo('There was an error loading language "{}".'
+                           .format(language))
+                click.echo('Is it installed? Try to install it '
+                           'with "pip install textx-lang-{}"'
                            .format(language))
                 click.echo('Use "textx list-langs" to see all registered '
                            'languages.')

@@ -39,4 +39,5 @@ def render(template_path, context, root_path=None):
 
 # This object is registered in setup.py under entry point textx_gen
 gendesc = GenDesc(name="{{package_name}}", lang="{{language}}",
+                  desc="{{package_name}} generator for {{language}} language",
                   genconf=genconf_model, render=render)

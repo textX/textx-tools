@@ -13,8 +13,6 @@ def list_gens(verbose):
         gendesc = ep.load()
         desc = ""
         if verbose:
-            gen_doc = gendesc.callable.__doc__
-            if gen_doc:
-                desc = "\n\t{}".format(gen_doc.strip())
+            desc = "\n\t{}".format(gendesc.desc)
         click.echo("%s (%s) - %s (%s)%s" % (gendesc.name, gendesc.lang, ep.dist,
                                             ep.dist.location, desc))
