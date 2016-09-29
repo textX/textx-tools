@@ -45,6 +45,7 @@ setup(
         'textx_commands': [
             'vis = txtools.cli.vis:vis',
             'check = txtools.cli.check:check',
+            'generate = txtools.cli.generate:generate',
             'startproject = txtools.cli.startproject:startproject',
             'list-gens = txtools.cli.list_gens:list_gens',
             'list-langs = txtools.cli.list_langs:list_langs',
