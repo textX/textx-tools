@@ -15,16 +15,17 @@ def genconf_model():
         os.path.join(curr_dir, '{{package_name}}.genconf'))
 
 
-def render(root_path, template_path, context):
+def render(template_path, context, root_path=None):
     """
     Returns rendered template. By default search for template at the given
     root path. If not found search is continued in the generator templates
     folder.
 
     Args:
-        root_path (str): The root where templates should be searched first.
         template_path (str): Relative path to the template inside the root_path.
         context (dict)
+        root_path (str): The root where templates should be searched first.
+            If None no override is performed.
     """
 
     # By default jinja2 is used but this can be changed by the user.

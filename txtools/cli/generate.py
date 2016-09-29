@@ -2,7 +2,7 @@ import os
 import sys
 import click
 from txtools.lang.genconf import load_genconf
-from txtools.gen import generate
+from txtools.lang import genconf
 from txtools.exceptions import TextXToolsException
 
 
@@ -24,18 +24,19 @@ def generate(project_folder):
 
         click.echo("Generating application code.")
 
-        # Load each genconf file. Merge with base genconf for the generator.
         for root, dirs, files in \
                 os.walk(os.path.join(project_folder, 'genconf')):
             for f in files:
                 _, ext = os.path.splitext(f)
                 if not ext == '.genconf':
                     continue
+
+                # Load each genconf file. Merge with base genconf for the
+                # generator.
                 gc_model = load_genconf(os.path.join(root, f))
 
-                # For each model configured in current genconf
-                for model in gc_model.models:
-                    generate(model, )
+                # Interpret/generate genconf model
+                genconf.generate(gc_model, project_folder)
 
     except TextXToolsException as e:
         click.echo(e)
