@@ -39,7 +39,7 @@ def generate(project_folder):
                 genconf.generate(gc_model, project_folder)
 
     except TextXToolsException as e:
-        click.echo(e)
+        click.echo("Error: {}".format(e))
         sys.exit(1)
 
     # For each referenced model, load model using appropriate language.
