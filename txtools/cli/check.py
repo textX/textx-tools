@@ -21,7 +21,7 @@ def check(language, model_file, debug):
             metamodel_from_file(model_file, debug=debug)
             click.echo('Meta-model OK.')
         else:
-            mm = get_language(language)()
+            mm = get_language(language)
             click.echo('Checking model using language "{}".'.format(language))
             mm.model_from_file(model_file, debug=debug)
             click.echo('Model OK.')

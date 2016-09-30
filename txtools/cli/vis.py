@@ -25,7 +25,7 @@ def vis(model_file, language, debug):
                        % model_file)
             metamodel_export(mm, "%s.dot" % model_file)
         else:
-            mm = get_language(language)()
+            mm = get_language(language)
             model = mm.model_from_file(model_file, debug=debug)
             click.echo("Generating '%s.dot' file for model." % model_file)
             click.echo("To convert to png run 'dot -Tpng -O %s.dot'"
