@@ -20,6 +20,19 @@ __all__ = ['load_genconf', 'generate']
 genconf_mm = None
 
 
+def meta():
+    """
+    Language for generators configuration.
+    """
+    global genconf_mm
+
+    curr_dir = os.path.dirname(__file__)
+    if genconf_mm is None:
+        genconf_mm = metamodel_from_file(os.path.join(curr_dir, 'genconf.tx'))
+
+    return genconf_mm
+
+
 def load_genconf(genconf_path):
     """
     Loads genconf model from the given path. Merge with generator genconf.
@@ -84,7 +97,15 @@ def generate(genconf_model, project_folder):
 
         for rule in genconf_model.rules:
 
-            objs = all_of_type(meta, model, rule.type)
+            # Sanity check
+            if len(rule.types) != len(rule.var_names):
+                raise TextXToolsException('Number of variables don\'t match'
+                                          ' number of types in rule "{}"'
+                                          .format(rule.name))
+
+            type_objs = []
+            for t in rule.types:
+                type_objs.append(all_of_type(meta, model, t))
 
             params = {}
             if rule.all:
@@ -100,15 +121,19 @@ def generate(genconf_model, project_folder):
                 except FileExistsError:
                     pass
 
-                params[rule.var_name] = objs
+                for ind, obj in enumerate(type_objs):
+                    params[rule.var_names[ind]] = obj
                 with open(output_file, 'w') as f:
                     f.write(gendesc.render(rule.template_path, params,
-                                        templates_path))
+                                           templates_path))
 
             else:
-                for obj in objs:
+                if len(rule.types) > 1:
+                    raise TextXToolsException('Multiple types/variables are not'
+                                              ' possible for "non-all" rules.')
+                for obj in type_objs[0]:
                     output_file = os.path.join(
-                        output_folder,
+                        output_root,
                         evaluate_target(rule.target_file_expr))
                     click.echo("Generating {}".format(output_file))
                     try:
@@ -116,23 +141,10 @@ def generate(genconf_model, project_folder):
                     except FileExistsError:
                         pass
 
-                    params[rule.var_name] = obj
+                    params[rule.var_names[0]] = obj
                     with open(output_file, 'w') as f:
                         f.write(gendesc.render(rule.template_path, params,
-                                            templates_path))
-
-
-def meta():
-    """
-    Language for generators configuration.
-    """
-    global genconf_mm
-
-    curr_dir = os.path.dirname(__file__)
-    if genconf_mm is None:
-        genconf_mm = metamodel_from_file(os.path.join(curr_dir, 'genconf.tx'))
-
-    return genconf_mm
+                                               templates_path))
 
 
 def _merge_genconfs(*models):

@@ -41,20 +41,20 @@ ConfigurationFile:
 
 GenRule:
     name=ID ':'
-    'for' all?='all' type=ID 'as' var_name=ID
+    'for' all?='all' types+=ID[','] 'as' var_names+=ID[',']
         template_path=FilePath '=>' target_file_expr=TargetFilePathExpression
 ;
 
 FilePath:
-    /[a-zA-Z0-9_\-\.\/]+/
+    STRING
 ;
 
 TargetFilePathExpression:
-    op=FilePathOrAttr ('+' op=FilePathOrAttr)*
+    op=FPExpOperand ('+' op=FPExpOperand)*
 ;
 
-FilePathOrAttr:
-    STRING | FilePath | AttributeReference
+FPExpOperand:
+    STRING | AttributeReference
 ;
 
 AttributeReference[noskipws]:
