@@ -117,17 +117,28 @@ Create application project:
 
 # Workflow
 
-- Design your language in the language project. Use check and vis commands
+- Design your language in the the language project. Use check and vis commands
   during development.
-- Implement your generator in generator project. Write templates and genconf
-  generator configurations.
-- Use your language to write application model in application project.
-  Configure generators. If needed do template and rule override.
+- Implement your generator in the generator project. Write code templates and
+  genconf generator configurations.
+- Use your language to write application model in the application project.
+  Configure generators (at least specify models). If needed do templates and
+  rules override.
 - Generate code using 'textx generate' command.
-- To support manual changes to the generated code generate code on dedicated
-  git branch. Merge with development branch.
+- To support manual changes to the generated code generate code on a dedicated
+  git branch. Merge with the development branch.
 
-In general, language and generator development should be done by a language
+In general, language and generator development should be done by language
 designer team members. Application developers use languages to make models,
 generate code and do manual changes to the code.
+
+
+# TODO
+
+- Tests
+- Documentation
+- Examples. Currently [ER
+  language](https://github.com/igordejanovic/textx-lang-er) and
+  [flask](https://github.com/igordejanovic/textx-gen-er-flask) and angularjs
+  generators for the ER language are in the development. Still in early stage.
 
