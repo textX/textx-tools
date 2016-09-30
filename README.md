@@ -15,14 +15,15 @@ and code size.
 
 # Installation
 
-This tool is in early stage of development so it is best to be used from source
+This tool is in early stage of development so it is best to be used from git
+repo
 
-    git clone https://github.com/igordejanovic/textx-tools.git
-    pip install -e textx-tools
+    $ git clone https://github.com/igordejanovic/textx-tools.git
+    $ pip install -e textx-tools
 
 To update just go to textx-tools folder and do
 
-    git pull
+    $ git pull
 
 # Quick intro
 
