@@ -1,7 +1,9 @@
 from __future__ import unicode_literals
 import os
 import sys
+import itertools
 import click
+from collections import OrderedDict
 from textx.model import all_of_type
 from textx.lang import get_language
 from textx.metamodel import metamodel_from_file
@@ -71,8 +73,7 @@ def load_genconf(genconf_path):
     orig_genconf_model = gen_desc.genconf()
 
     # Merge/override by user rules
-    merged_rules = _merge_genconfs(orig_genconf_model, model)
-    model.rules = merged_rules
+    _merge_genconfs(model, orig_genconf_model)
 
     return model
 
@@ -154,22 +155,28 @@ def generate(genconf_model, project_folder):
                                                templates_path))
 
 
-def _merge_genconfs(*models):
+def _merge_genconfs(user_model, generator_model):
     """
-    Merges multiple genconf models. Later model's rules will have precedence
-    over former ones. Think of it as rule override. This enables user to
-    redefine genconf rules defined by the generator component.
+    Merges genconf models with generator provided. Later model's rules/params
+    will have precedence over former ones. Think of it as rule override. This
+    enables user to redefine genconf rules and parameters defined by the
+    generator component.
 
     Returns a list of genconf rules.
+
     """
 
-    rules = {}
+    # Merge rules
+    rules = OrderedDict()
+    for rule in itertools.chain(generator_model.rules, user_model.rules):
+        rules[rule.name] = rule
+    user_model.rules = list(rules.values())
 
-    for model in models:
-        for rule in model.rules:
-            rules[rule.name] = rule
-
-    return rules.values()
+    # Merge generator parameters
+    params = OrderedDict()
+    for param in itertools.chain(generator_model.params, user_model.params):
+        params[param.name] = param
+    user_model.params = list(params.values())
 
 
 def evaluate_target(target_expr, obj):
