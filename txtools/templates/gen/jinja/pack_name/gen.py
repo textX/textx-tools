@@ -2,6 +2,7 @@ import os
 from jinja2 import Environment, PackageLoader, FileSystemLoader, ChoiceLoader
 from txtools.gen import GenDesc
 from textx.lang import get_language
+from txtools.exceptions import TextXToolsException
 
 
 PARAM_NAMES = ()
@@ -14,8 +15,14 @@ def genconf_model():
     """
     gc_meta = get_language("genconf")
     curr_dir = os.path.dirname(__file__)
-    return gc_meta.model_from_file(
+    gc_model = gc_meta.model_from_file(
         os.path.join(curr_dir, '{{package_name}}.genconf'))
+
+    # Check parameters
+    for p in gc_model.params:
+        if p.name not in PARAM_NAMES:
+            raise TextXToolsException('Undefined generator parameter "{}".'
+                                      .format(p.name))
 
 
 def render(template_path, context, root_path=None):
