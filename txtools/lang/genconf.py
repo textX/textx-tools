@@ -18,6 +18,7 @@ __all__ = ['load_genconf', 'generate']
 
 
 genconf_mm = None
+PARAMETER_NAMES = ('flask_admin', 'composite_keys')
 
 
 def meta():
@@ -43,6 +44,12 @@ def load_genconf(genconf_path):
 
     mm = meta()
     model = mm.model_from_file(genconf_path)
+
+    # Check params
+    for p in model.params:
+        if p.name not in PARAMETER_NAMES:
+            raise TextXToolsException('Invalid generator parameter "{}".'
+                                      .format(p.name))
 
     # Determine generator name from the file name if not given in the model.
     if not model.gen_name:

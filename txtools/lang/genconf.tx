@@ -27,6 +27,7 @@ ConfigurationFile:
 
     ('generator' gen_name=ID)?      // If generator name is not given it is
                                     // deduced from the file name.
+    params*=Param                  // Optional generator parameters
 
     ('models' '{'
         models*=FilePath     // Relative file path in the "models"
@@ -36,6 +37,10 @@ ConfigurationFile:
                                    // generated. Default is 'src'
 
     rules*=GenRule
+;
+
+Param:
+    name=ID '=' value=BASETYPE
 ;
 
 
