@@ -4,6 +4,9 @@ from txtools.gen import GenDesc
 from textx.lang import get_language
 
 
+PARAM_NAMES = ()
+
+
 def genconf_model():
     """
     Returns genconf model for '{{package_name}}' generator and '{{language}}'
@@ -40,4 +43,5 @@ def render(template_path, context, root_path=None):
 # This object is registered in setup.py under entry point textx_gen
 gendesc = GenDesc(name="{{package_name}}", lang="{{language}}",
                   desc="{{package_name}} generator for {{language}} language",
-                  genconf=genconf_model, render=render)
+                  genconf=genconf_model, render=render,
+                  param_names=PARAM_NAMES)
