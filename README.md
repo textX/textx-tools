@@ -10,7 +10,8 @@ This tool is pluggable. You can define your own subcommands. See `setup.py`.
 
 # For what it is used?
 
- - textX project scaffolding (three types of projects: language, generator, application)
+ - textX project scaffolding (three types of projects: language, generator,
+   application)
  - Meta-model (grammar) and models visualization
  - Meta-model (grammar) and model checking
  - Running code generation process.
@@ -18,14 +19,13 @@ This tool is pluggable. You can define your own subcommands. See `setup.py`.
 # Installation
 
 This tool is in early stage of development so it is best to be used from git
-repo
+repo. Also, you must first install textX from master branch.
+    
+    $ pip install --upgrade https://github.com/igordejanovic/textX/archive/master.zip
+    $ pip install --upgrade https://github.com/igordejanovic/textx-tools/archive/master.zip
 
-    $ git clone https://github.com/igordejanovic/textx-tools.git
-    $ pip install -e textx-tools
-
-To update just go to textx-tools folder and do
-
-    $ git pull
+I highly suggest you to use [virtualenv](https://virtualenv.pypa.io/) as it is
+much easier to isolate libraries from the rest of the system.
 
 # Quick intro
 
