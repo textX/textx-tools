@@ -33,7 +33,7 @@ setup(
     url = URL,
     download_url = DOWNLOAD_URL,
     packages = ["{{package_name}}"],
-    install_requires = ["textx-tools", "Jinja2"],
+    install_requires = ["textx-tools", "textx-lang-{{language}}", "Jinja2"],
     keywords = "tools generator language DSL",
     entry_points={
         'textx_gen': [
