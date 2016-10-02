@@ -13,25 +13,29 @@ can change that.
 Generator registration and template rendering function can be found in
 `{{package_name}}/gen.py`
 
-This generator is registered in setuptools entry point `textx_gen` inside setup.py.
-After installation it will be visible to the textx tool.
+This generator is registered in setuptools entry point `textx_gen` inside
+setup.py. After installation it will be visible to the textx tool.
 
-This command will list all registered generators.
-
-    $ textx list-gens
-
-
-It is recommended to install this project in development mode during
+It is recommended to install this project in the development mode for
 development.
 
 To do that run this from the project folder:
 
     $ pip install -e .
 
+This command will list all registered generators:
 
-To test generator create textX app project and make genconf in that project
-under `genconf` folder with the name `{{package_name}}.genconf` and the
-{{langauge}} model in `model` folder. Reference your model from the genconf.
+    $ textx list-gens
+
+
+To test generator create textX app project:
+
+    $ textx startproject myproject
+
+
+and make genconf in that project under `genconf` folder with the name
+`{{package_name}}.genconf` and the {{langauge}} model in `model` folder.
+Reference your model from the genconf.
 
 Use:
 
