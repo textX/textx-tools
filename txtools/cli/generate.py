@@ -4,6 +4,7 @@ import click
 from txtools.lang.genconf import load_genconf
 from txtools.lang import genconf
 from txtools.exceptions import TextXToolsException
+from textx.exceptions import TextXSemanticError
 
 
 @click.command()
@@ -38,7 +39,7 @@ def generate(project_folder):
                 # Interpret/generate genconf model
                 genconf.generate(gc_model, project_folder)
 
-    except TextXToolsException as e:
+    except (TextXToolsException, TextXSemanticError) as e:
         click.echo("Error: {}".format(e))
         sys.exit(1)
 
