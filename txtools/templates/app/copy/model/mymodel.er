@@ -5,7 +5,7 @@
 model First
 "This is the first example in ER language"
 
-constraint less_than(attr) applies to attr
+constraint less_than applies to attr
 
 
 enum Degree {
