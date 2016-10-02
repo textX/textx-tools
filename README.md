@@ -18,14 +18,14 @@ This tool is pluggable. You can define your own subcommands. See `setup.py`.
 
 # Installation
 
-This tool is in early stage of development so it is best to be used from git
-repo. Also, you must first install textX from master branch.
+This tool is in early stage of development so development version must be used
+at the moment. Also, you must first install textX from master branch.
     
     $ pip install --upgrade https://github.com/igordejanovic/textX/archive/master.zip
     $ pip install --upgrade https://github.com/igordejanovic/textx-tools/archive/master.zip
 
-I highly suggest you to use [virtualenv](https://virtualenv.pypa.io/) as it is
-much easier to isolate libraries from the rest of the system.
+I highly suggest you to use [virtualenv](https://virtualenv.pypa.io/) as it
+enables easy creation of isolated environments.
 
 # Quick intro
 
