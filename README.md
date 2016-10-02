@@ -6,6 +6,8 @@ The main idea is to separate development tooling from the textX runtime.  This
 way core textX library will be kept to its minimum in terms of dependencies
 and code size.
 
+This tool is pluggable. You can define your own subcommands. See `setup.py`.
+
 # For what it is used?
 
  - textX project scaffolding (three types of projects: language, generator, application)
@@ -87,7 +89,7 @@ Create generator project for mylang language:
     Done.
 
 Install generator project in development mode:
-    
+
     $ pip install -e textx-gen-mylang-angularjs
 
 List registered languages:
@@ -99,7 +101,7 @@ List registered languages:
         mylang language.
 
 List registered generators:
-    
+
     $ textx list-gens -v
     mylang_angularjs (mylang) - textx-gen-mylang-angularjs 0.1 (/home/igor/tmp/textx-gen-mylang-angularjs)
         angularjs generator for mylang language
@@ -115,6 +117,8 @@ Create application project:
     Creating genconf/er_flask.genconf
     Creating README.md
     Done.
+
+Read generated `README.md` for each type of project to get you started.
 
 # Workflow
 
