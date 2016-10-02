@@ -118,7 +118,7 @@ Create application project:
     Creating README.md
     Done.
 
-Read generated `README.md` for each type of project to get you started.
+*Read generated `README.md` for each type of project to get you started.*
 
 # Workflow
 
