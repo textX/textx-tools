@@ -33,6 +33,9 @@ setup(
     url = URL,
     download_url = DOWNLOAD_URL,
     packages = ["{{package_name}}"],
+    package_data={
+        '{{package_name}}': ['templates/*', '{{package_name}}.genconf'],
+    },
     install_requires = ["textx-tools", "textx-lang-{{language}}", "Jinja2"],
     keywords = "tools generator language DSL",
     entry_points={

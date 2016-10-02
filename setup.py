@@ -33,7 +33,8 @@ setup(
     download_url = DOWNLOAD_URL,
     packages = find_packages(),
     package_data={
-        'txtools.cli': ['templates/*.template'],
+        'txtools': ['templates/*.template'],
+        'txtools.lang': ['*.tx'],
     },
     zip_safe=False,
     install_requires = ["textX", "click", "Jinja2"],
