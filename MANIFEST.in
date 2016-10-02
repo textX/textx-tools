@@ -1,0 +1,3 @@
+include README.md
+include txtools/lang/*.tx
+recursive-include txtools/templates *

@@ -32,10 +32,7 @@ setup(
     url = URL,
     download_url = DOWNLOAD_URL,
     packages = find_packages(),
-    package_data={
-        'txtools': ['templates/*.template'],
-        'txtools.lang': ['*.tx'],
-    },
+    include_package_data=True,
     zip_safe=False,
     install_requires = ["textX", "click", "Jinja2"],
     keywords = "tools parser generator meta-language meta-model language DSL",

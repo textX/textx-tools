@@ -33,9 +33,7 @@ setup(
     url = URL,
     download_url = DOWNLOAD_URL,
     packages = ["{{package_name}}"],
-    package_data={
-        '{{package_name}}': ['*.tx'],
-    },
+    include_package_data=True,
     install_requires = ["textX"],
     keywords = "tools language DSL",
     entry_points={
