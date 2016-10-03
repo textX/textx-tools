@@ -1,24 +1,41 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
+import sys
 import codecs
 from setuptools import setup
+import {{package_name}}
 
-__author__ = "TODO <TODO AT somedomain DOT com>"
-__version__ = "0.1"
-
+AUTHOR = 'TODO'
+AUTHOR_EMAIL = 'TODO'
 GITHUB_ACCOUNT = 'TODO'
+
 NAME = '{{full_project_name}}'
 DESC = '{{package_name}} textX generator'
-VERSION = __version__
-AUTHOR = __author__.split('<')[0].strip()
-AUTHOR_EMAIL = __author__
+VERSION = {{package_name}}.__version__
 LICENSE = 'MIT'
 URL = 'https://github.com/%s/%s' % (GITHUB_ACCOUNT, NAME)
 DOWNLOAD_URL = 'https://github.com/%s/%s/archive/v%s.tar.gz' % \
     (GITHUB_ACCOUNT, NAME, VERSION)
 README = codecs.open(os.path.join(os.path.dirname(__file__), 'README.md'),
                      'r', encoding='utf-8').read()
+
+if sys.argv[-1].startswith('publish'):
+    if os.system("pip list | grep wheel"):
+        print("wheel not installed.\nUse `pip install wheel`.\nExiting.")
+        sys.exit()
+    if os.system("pip list | grep twine"):
+        print("twine not installed.\nUse `pip install twine`.\nExiting.")
+        sys.exit()
+    os.system("python setup.py sdist bdist_wheel")
+    if sys.argv[-1] == 'publishtest':
+        os.system("twine upload -r test dist/*")
+    else:
+        os.system("twine upload dist/*")
+        print("You probably want to also tag the version now:")
+        print("  git tag -a {0} -m 'version {0}'".format(VERSION))
+        print("  git push --tags")
+    sys.exit()
 
 setup(
     name = NAME,
