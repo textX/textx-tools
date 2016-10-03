@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
+import sys
 import codecs
 from setuptools import setup
 import {{package_name}}
@@ -12,8 +13,6 @@ GITHUB_ACCOUNT = 'TODO'
 NAME = '{{full_project_name}}'
 DESC = '{{package_name}} textX language'
 VERSION = {{package_name}}.__version__
-AUTHOR = __author__.split('<')[0].strip()
-AUTHOR_EMAIL = __author__
 LICENSE = 'MIT'
 URL = 'https://github.com/%s/%s' % (GITHUB_ACCOUNT, NAME)
 DOWNLOAD_URL = 'https://github.com/%s/%s/archive/v%s.tar.gz' % \
