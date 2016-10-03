@@ -3,6 +3,8 @@ import shutil
 import click
 from jinja2 import Environment, FileSystemLoader
 
+__version__ = "0.1.dev0"
+
 
 def copy_scaffolding(project_type, project_folder, package_name):
     """
