@@ -4,7 +4,7 @@ import sys
 import itertools
 import click
 from collections import OrderedDict
-from textx.model import all_of_type
+from textx.model import children_of_type
 from textx.lang import get_language
 from textx.metamodel import metamodel_from_file
 from txtools.gen import get_generator_desc
@@ -102,6 +102,12 @@ def generate(genconf_model, project_folder):
         model = meta.model_from_file(os.path.join(project_folder, 'model',
                                                   model_path))
 
+        params = {}
+        # Adding generator params
+        for p in genconf_model.params:
+            params[p.name] = p.value
+
+        # Processing all rules
         for rule in genconf_model.rules:
 
             # Sanity check
@@ -112,9 +118,8 @@ def generate(genconf_model, project_folder):
 
             type_objs = []
             for t in rule.types:
-                type_objs.append(all_of_type(meta, model, t))
+                type_objs.append(children_of_type(model, t))
 
-            params = {}
             if rule.all:
                 # Target file expr must be a single string for "all" rules
                 if len(rule.target_file_expr.op) > 1 or \

@@ -43,7 +43,6 @@ Param:
     name=ID '=' value=BASETYPE
 ;
 
-
 GenRule:
     name=ID ':'
     'for' all?='all' types+=ID[','] 'as' var_names+=ID[',']
