@@ -8,7 +8,7 @@ from textx.model import children_of_type
 from textx.lang import get_language
 from textx.metamodel import metamodel_from_file
 from txtools.gen import get_generator_desc
-from txtools.exceptions import TextXToolsException
+from txtools.exceptions import TextXToolsError
 
 if sys.version < '3':
     text = unicode
@@ -58,7 +58,7 @@ def load_genconf(genconf_path):
 
     # Sanity check.
     if gen_desc is None:
-        raise TextXToolsException(
+        raise TextXToolsError(
             'Generator "{}" for genconf model "{}" is not registered.'.format(
                 model.gen_name, genconf_path))
 
@@ -112,9 +112,9 @@ def generate(genconf_model, project_folder):
 
             # Sanity check
             if len(rule.types) != len(rule.var_names):
-                raise TextXToolsException('Number of variables don\'t match'
-                                          ' number of types in rule "{}"'
-                                          .format(rule.name))
+                raise TextXToolsError('Number of variables don\'t match'
+                                      ' number of types in rule "{}"'
+                                      .format(rule.name))
 
             type_objs = []
             for t in rule.types:

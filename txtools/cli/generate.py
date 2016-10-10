@@ -3,7 +3,7 @@ import sys
 import click
 from txtools.lang.genconf import load_genconf
 from txtools.lang import genconf
-from txtools.exceptions import TextXToolsException
+from txtools.exceptions import TextXToolsError
 from textx.exceptions import TextXError
 
 
@@ -20,7 +20,7 @@ def generate(project_folder):
 
         # Check if genconf folder exists
         if not os.path.exists(os.path.join(project_folder, 'genconf')):
-            raise TextXToolsException('There is no "genconf" folder here. '
+            raise TextXToolsError('There is no "genconf" folder here. '
                                       'Is this a textX project?')
 
         click.echo("Generating application code.")
@@ -39,7 +39,7 @@ def generate(project_folder):
                 # Interpret/generate genconf model
                 genconf.generate(gc_model, project_folder)
 
-    except (TextXToolsException, TextXError) as e:
+    except (TextXToolsError, TextXError) as e:
         click.echo("Error: {}".format(e))
         sys.exit(1)
 
