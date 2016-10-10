@@ -62,16 +62,30 @@ def load_genconf(genconf_path):
             'Generator "{}" for genconf model "{}" is not registered.'.format(
                 model.gen_name, genconf_path))
 
-    # Check params
-    for p in model.params:
-        if p.name not in gen_desc.param_names:
-            raise TextXToolsException('Invalid generator parameter "{}".'
-                                      .format(p.name))
-
     # Load original genconf from the generator
     orig_genconf_model = gen_desc.genconf()
 
-    # Merge/override by user rules
+    # Get generator parameters and use it to check user genconf model params.
+    generator_params = {p.name for p in orig_genconf_model.params}
+    must_change = {p.name for p in orig_genconf_model.params
+                   if p.value == 'must_change'}
+
+    # Check params
+    for p in model.params:
+        if p.name in must_change:
+            must_change.remove(p.name)
+        if p.name not in generator_params:
+            raise TextXToolsError(
+                'Invalid generator parameter. Parameter "{}" not defined by '
+                'the generator genconf model.'.format(p.name))
+
+    # If some of the must_change parameter is not defined
+    if must_change:
+        raise TextXToolsError(
+            'You must define generator parameters: {}.'
+            .format(' and '.join(["'{}'".format(p) for p in must_change])))
+
+    # Merge/override by user rules and parameters
     _merge_genconfs(model, orig_genconf_model)
 
     return model
@@ -79,7 +93,8 @@ def load_genconf(genconf_path):
 
 def generate(genconf_model, project_folder):
     """
-    Interprets genconf model.
+    Interprets genconf model and generates code using rules from the genconf
+    model.
 
     Args:
         genconf_model (genconf textX model):
@@ -166,8 +181,7 @@ def _merge_genconfs(user_model, generator_model):
     enables user to redefine genconf rules and parameters defined by the
     generator component.
 
-    Returns a list of genconf rules.
-
+    Changes user_model in-place.
     """
 
     # Merge rules

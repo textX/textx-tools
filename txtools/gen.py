@@ -6,7 +6,7 @@ from collections import namedtuple
 
 
 # An instance of this namedtuple must be registered in textx_gen entry point.
-GenDesc = namedtuple('GenDesc', 'name lang desc genconf render param_names')
+GenDesc = namedtuple('GenDesc', 'name lang desc genconf render validate')
 
 
 def iter_generators():
