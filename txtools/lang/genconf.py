@@ -117,6 +117,10 @@ def generate(genconf_model, project_folder):
         model = meta.model_from_file(os.path.join(project_folder, 'model',
                                                   model_path))
 
+        # Validate model using generator specific validation.
+        if gendesc.validate:
+            gendesc.validate(model)
+
         params = {}
         # Adding generator params
         for p in genconf_model.params:
