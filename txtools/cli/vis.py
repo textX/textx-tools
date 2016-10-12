@@ -21,14 +21,14 @@ def vis(model_file, language, debug):
         if language == 'textx':
             mm = metamodel_from_file(model_file, debug=debug)
             click.echo("Generating '%s.dot' file for meta-model." % model_file)
-            click.echo("To convert to png run 'dot -Tpng -O %s.dot'"
+            click.echo("To convert to PDF run 'dot -Tpdf -O %s.dot'"
                        % model_file)
             metamodel_export(mm, "%s.dot" % model_file)
         else:
             mm = get_language(language)
             model = mm.model_from_file(model_file, debug=debug)
             click.echo("Generating '%s.dot' file for model." % model_file)
-            click.echo("To convert to png run 'dot -Tpng -O %s.dot'"
+            click.echo("To convert to PDF run 'dot -Tpdf -O %s.dot'"
                        % model_file)
             model_export(model, "%s.dot" % model_file)
     except TextXError as e:
