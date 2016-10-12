@@ -110,6 +110,12 @@ def generate(genconf_model, project_folder):
 
     output_root = os.path.join(project_folder, genconf_model.output)
 
+    def _create_folder(output_file):
+        try:
+            os.makedirs(os.path.dirname(output_file))
+        except FileExistsError:
+            pass
+
     # For each model configured in the current genconf
     for model_path in genconf_model.models:
 
@@ -135,47 +141,43 @@ def generate(genconf_model, project_folder):
                                       ' number of types in rule "{}"'
                                       .format(rule.name))
 
+            # Collect all object of each given type
             type_objs = []
             for t in rule.types:
                 type_objs.append(children_of_type(model, t))
 
             if rule.all:
-                # Target file expr must be a single string for "all" rules
-                if len(rule.target_file_expr.op) > 1 or \
-                        type(rule.target_file_expr.op[0]) is not text:
-                    raise TextXToolsException(
-                        '"all" rules target filename must be string.')
-                output_file = os.path.join(output_root, rule.target_file_expr.op[0])
-                click.echo("Generating {}".format(output_file))
-                try:
-                    os.makedirs(os.path.dirname(output_file))
-                except FileExistsError:
-                    pass
-
+                context = {'__builtins__':{}}
                 for ind, obj in enumerate(type_objs):
                     params[rule.var_names[ind]] = obj
-                with open(output_file, 'w') as f:
-                    f.write(gendesc.render(rule.template_path, params,
-                                           templates_path))
+                context.update(params)
+                for t in rule.trans:
+                    target_path = eval(t.python_path_expr, context)
+                    output_file = os.path.join(output_root, target_path)
 
+                    click.echo("Generating {}".format(output_file))
+
+                    _create_folder(output_file)
+                    with open(output_file, 'w') as f:
+                        f.write(gendesc.render(t.template_path, params,
+                                               templates_path))
             else:
                 if len(rule.types) > 1:
-                    raise TextXToolsException('Multiple types/variables are not'
-                                              ' possible for "non-all" rules.')
+                    raise TextXToolsError('Multiple types/variables are not'
+                                          ' possible for "non-all" rules.')
                 for obj in type_objs[0]:
-                    output_file = os.path.join(
-                        output_root,
-                        evaluate_target(rule.target_file_expr))
-                    click.echo("Generating {}".format(output_file))
-                    try:
-                        os.makedirs(os.path.dirname(output_file))
-                    except FileExistsError:
-                        pass
-
                     params[rule.var_names[0]] = obj
-                    with open(output_file, 'w') as f:
-                        f.write(gendesc.render(rule.template_path, params,
-                                               templates_path))
+                    context = {'__builtins__': {}}
+                    context.update(params)
+                    for t in rule.trans:
+                        target_path = eval(t.python_path_expr, context)
+                        output_file = os.path.join(output_root, target_path)
+                        click.echo("Generating {}".format(output_file))
+                        _create_folder(output_file)
+
+                        with open(output_file, 'w') as f:
+                            f.write(gendesc.render(t.template_path, params,
+                                                   templates_path))
 
 
 def _merge_genconfs(user_model, generator_model):

@@ -46,23 +46,19 @@ Param:
 GenRule:
     name=ID ':'
     'for' all?='all' types+=ID[','] 'as' var_names+=ID[',']
-        template_path=FilePath '=>' target_file_expr=TargetFilePathExpression
+        trans+=TemplateTransformation
+;
+
+TemplateTransformation:
+    template_path=FilePath '=>' python_path_expr=/[^\n]*/
+    // python_path_expr is a python expression that should result in a
+    // file path name of the target path. Everything until the end of line
+    // will be passed to Python eval together with the collected objects
+    // and generator parameters in the context.
 ;
 
 FilePath:
     STRING
-;
-
-TargetFilePathExpression:
-    op=FPExpOperand ('+' op=FPExpOperand)*
-;
-
-FPExpOperand:
-    STRING | AttributeReference
-;
-
-AttributeReference[noskipws]:
-    /\s*/ obj=ID '.' attr=ID
 ;
 
 Comment:
