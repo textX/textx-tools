@@ -4,22 +4,22 @@
 // Files extension should be .genconf
 
 // Perform for each object of particular type.
-// Target file name is constructed from path parts and reference to 
-// object (entity) attribute value. Path part may be given as strings
-// or as plain text (if no white-space is involved.)
+// Target file name is constructed by evalutation of Python expression.
+// The expression may reference variables defined in "for" clause and
+// all generator parameters.
 
 Entity:
     for Entity as entity
-        angular/form.html => "forms/" + entity.name + ".html"
+        "angular/form.html" => "forms/%s.html" % entity.name
 
 // collect all object of particular type and perform once for the list.
 Enums:
     for all Enums as enums
-        flask/enums.py.template => flask/enums.py
+        "flask/enums.py.template" => "flask/enums.py"
 
 Model:
-    for Model as model
-        flask/models.py.template => flask/models.py
+    for Entity, Enum as entities, enums
+        "flask/models.py.template" => "flask/models.py"
 
 */
 
@@ -53,8 +53,8 @@ TemplateTransformation:
     template_path=FilePath '=>' python_path_expr=/[^\n]*/
     // python_path_expr is a python expression that should result in a
     // file path name of the target path. Everything until the end of line
-    // will be passed to Python eval together with the collected objects
-    // and generator parameters in the context.
+    // will be passed to Python eval. The context of eval execution will
+    // contain collected objects and generator parameters.
 ;
 
 FilePath:
