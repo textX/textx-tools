@@ -5,7 +5,7 @@ import click
 from textx.lang import get_language
 from textx.exceptions import TextXError
 from txtools import copy_scaffolding, render_scaffolding
-from txtools.exceptions import TextXToolsException
+from txtools.exceptions import TextXToolsError
 
 
 @click.command()
