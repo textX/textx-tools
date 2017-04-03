@@ -13,7 +13,8 @@ def copy_scaffolding(project_type, project_folder, package_name):
     import txtools
     root_folder = os.path.join(os.path.dirname(txtools.__file__), 'templates',
                                project_type, 'copy')
-    for root, dirs, files in os.walk(root_folder):
+     for root, dirs, files in os.walk(root_folder, topdown=True):
+        [dirs.remove(d) for d in list(dirs) if d in ['__pycache__']]
         for f in files:
             src_file = os.path.join(root, f)
             rel_path = os.path.relpath(src_file, root_folder)
@@ -36,7 +37,8 @@ def render_scaffolding(project_type, project_folder, package_name, context):
     root_folder = os.path.join(os.path.dirname(txtools.__file__), 'templates',
                                project_type, 'jinja')
     env = Environment(loader=FileSystemLoader(root_folder))
-    for root, dirs, files in os.walk(root_folder):
+     for root, dirs, files in os.walk(root_folder, topdown=True):
+        [dirs.remove(d) for d in list(dirs) if d in ['__pycache__']]
         for f in files:
             src_file = os.path.join(root, f)
             rel_path = os.path.relpath(src_file, root_folder)
