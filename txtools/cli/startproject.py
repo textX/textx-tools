@@ -72,7 +72,7 @@ def startproject(project_type, language, project_name):
 
     try:
         _generate_project(context)
-    except TextXToolsException as e:
+    except TextXToolsError as e:
         click.echo(e)
         sys.exit(1)
 
@@ -92,7 +92,7 @@ def _generate_project(context):
     try:
         os.makedirs(project_folder)
     except FileExistsError:
-        raise TextXToolsException('Error: Project folder "{}" already exists.'
+        raise TextXToolsError('Error: Project folder "{}" already exists.'
                                   .format(project_folder))
 
     # Copy generic part defined in "all" folder
