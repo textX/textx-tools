@@ -1,5 +1,7 @@
 # textx-tools
 
+**DEPRECATED** by textX and textX-dev projects.
+
 The developer tool infrastructure for [textX](https://github.com/igordejanovic/textX).
 
 The main idea is to separate development tooling from the textX runtime.  This
